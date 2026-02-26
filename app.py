@@ -5,16 +5,16 @@ from docx.shared import Pt
 from io import BytesIO
 
 # --- CONFIGURACIÓN DE LA API ---
-#if "GENAI_KEY" in st.secrets:
-#   api_key = st.secrets["GENAI_KEY"]
-#else:
-#    api_key = "" 
+if "GENAI_KEY" in st.secrets:
+    api_key = st.secrets["GENAI_KEY"]
+else:
+    api_key = "" 
 
-#if not api_key:
-#    st.error("No se encontró la configuración de la API Key.")
-#else:
-#    genai.configure(api_key=api_key)
-genai.configure(api_key="AIzaSyCu3_w-6kCJsWHRnJLEyMfqbj0jWplgj0Y")
+if not api_key:
+    st.error("No se encontró la configuración de la API Key.")
+else:
+    genai.configure(api_key=api_key)
+
 model = genai.GenerativeModel('gemini-3-flash-preview')
 
 st.set_page_config(page_title="Asistente Planeador", page_icon="🍎", layout="wide")

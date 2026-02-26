@@ -17,7 +17,16 @@ except Exception as e:
 st.set_page_config(page_title="Asistente Planeador Pro", page_icon="🍎", layout="wide")
 
 # Ocultar menú de Streamlit
-st.markdown("""<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;} header {visibility: hidden;}</style>""", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+    /* Oculta el header pero permite que la flecha lateral siga funcionando */
+    [data-testid="stHeader"] {background: rgba(0,0,0,0); height: 0rem;}
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    /* Ajuste para que el contenido no quede pegado arriba */
+    .block-container {padding-top: 2rem;}
+    </style>
+    """, unsafe_allow_html=True)
 
 # --- LÓGICA DE USUARIO (SUPABASE AUTH) ---
 if 'user' not in st.session_state:

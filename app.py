@@ -14,7 +14,7 @@ else:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-3-flash-preview')
 
-st.set_page_config(page_title="Planeador Mágico", page_icon="🍎")
+st.set_page_config(page_title="Asistente planeador", page_icon="🍎")
 
 # --- FUNCIONES ---
 def crear_word(titulo, contenido):
@@ -33,7 +33,7 @@ if 'resultado' not in st.session_state:
 if 'tema_guardado' not in st.session_state:
     st.session_state.tema_guardado = ""
 
-st.title("🍎 Asistente para Maestras")
+st.title("🍎 Asistente de planeaciones 📚")
 
 col1, col2 = st.columns(2)
 with col1:
@@ -47,7 +47,11 @@ boton_generar = st.button("Generar Planeación ✨", use_container_width=True)
 if boton_generar:
     if tema:
         with st.spinner('Diseñando la clase...'):
-            prompt = f"Actúa como experto pedagogo. Genera una planeación didáctica sobre '{tema}' para {grado}. Incluye Resumen, Objetivo y 3 actividades. Responde en español."
+            prompt = (f"Actúa como experto pedagogo. Genera una planeación didáctica sobre '{tema}' para {grado}. "
+                    f"Incluye Resumen, Objetivo y 3 actividades con el tiempo de actividad de cada una, no es necesario que me aclares que actuaras como experto pedagogo"
+                    "añade actividades complementarias (hojas ludicas)"
+                    "incluye fuentes de apoyo (libros, citas en linea, etc.) Responde en español."
+                    "Incluye algunos links a videos de apoyo en youtube")
             response = model.generate_content(prompt)
             
             # GUARDAMOS EN LA MEMORIA

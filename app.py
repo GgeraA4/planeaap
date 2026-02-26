@@ -114,7 +114,8 @@ if boton_generar:
                     f"Incluye Resumen, Objetivo y 3 actividades con el tiempo estimado de cada una. "
                     f"Añade actividades complementarias (hojas lúdicas) e incluye fuentes de apoyo (libros, citas en linea, etc.). "
                     f"Incluye algunos links a videos de apoyo en YouTube. Responde en español.\n"
-                    f"Además, incluye lo siguiente:\n{instrucciones_extra}")
+                    f"Además, incluye lo siguiente:\n{instrucciones_extra}"
+                    f"No aclares en el texto que eres un experto pedagogo.")
             
             response = model.generate_content(prompt)
             
@@ -140,4 +141,5 @@ if st.session_state.resultado:
         data=archivo_word,
         file_name=f"Planeacion_{st.session_state.tema_guardado}.docx",
         mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+
     )

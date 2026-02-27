@@ -102,7 +102,7 @@ with st.sidebar:
             p_reg = st.text_input("Contraseña", type="password", key="r_pass")
             if st.button("Crear Cuenta", use_container_width=True): registrar_usuario(e_reg, p_reg)
     else:
-        st.write(f"Maestra: **{st.session_state.user.email}**")
+        st.write(f"Docente: **{st.session_state.user.email}**")
         if st.button("Cerrar Sesión"): cerrar_sesion()
         st.divider()
         st.subheader("📚 Mis Planeaciones")
@@ -115,6 +115,37 @@ with st.sidebar:
                         st.session_state.tema_guardado = p['tema']
         else:
             st.info("Sin registros.")
+        
+
+# --- SECCIÓN DE HERRAMIENTAS EXTERNAS ---
+with st.sidebar:
+    st.divider()
+    st.subheader("🛠️ Herramientas de Apoyo")
+    st.caption("Usa estas herramientas para complementar tu planeación con material visual y juegos:")
+
+    # Botón para Sopas de Letras y Crucigramas
+    st.link_button(
+        "🧩 Crear Sopa de Letras", 
+        "https://www.educima.com/wordsearch.php", 
+        use_container_width=True,
+        help="Copia las palabras de tu planeación y pégalas aquí para generar el juego."
+    )
+
+    # Botón para generar imágenes/dibujos para colorear
+    st.link_button(
+        "🎨 Dibujos para Colorear (IA)", 
+        "https://www.bing.com/images/create", 
+        use_container_width=True,
+        help="Pide a la IA: 'Un dibujo lineal para colorear sobre [tu tema] para niños'."
+    )
+
+    # Botón para dinámicas interactivas
+    st.link_button(
+        "🎲 Juegos Interactivos", 
+        "https://wordwall.net/es", 
+        use_container_width=True,
+        help="Crea cuestionarios, ruedas de la fortuna y juegos digitales rápido."
+    )
 
 # --- CUERPO PRINCIPAL ---
 st.title("🍎 Asistente de Planeaciones Pro 📚")
@@ -131,7 +162,7 @@ else:
         with col2:
             grado = st.selectbox("¿Para qué grado?", ["Preescolar", "1º Primaria", "2º Primaria", "3º Primaria", "4º Primaria", "5º Primaria", "6º Primaria", "Secundaria"])
         
-        metodologias = ["Constructivismo", "ABP", "Aprendizaje Basado en Problemas", "Enfoque por Competencias", "Aula Invertida", "Sistema Preventivo (Salesianas)"]
+        metodologias = ["Constructivismo", "Nueva escuela Mexicana", "Montessori", "Humanista", "Aprendizaje Basado en Problemas", "Enfoque por Competencias", "Aula Invertida", "Sistema Preventivo (Salesianas)"]
         metodologia = st.selectbox("Metodología", metodologias)
 
     # 2. OPCIONES EXTRAS (Recuperado)

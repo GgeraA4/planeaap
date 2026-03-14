@@ -68,6 +68,14 @@ def obtener_historial(email):
     res = supabase.table("planeaciones").select("*").eq("user_email", email).order("created_at", desc=True).execute()
     return res.data
 
+def eliminar_de_db(id_registro):
+    try:
+        supabase.table("planeaciones").delete().eq("id", id_registro).execute()
+        st.toast("Consulta eliminada correctamente", icon="🗑️")
+        st.rerun() # Esto recarga la app para actualizar la lista
+    except Exception as e:
+        st.error(f"No se pudo eliminar: {e}")
+
 # --- FUNCIÓN WORD PROFESIONAL ---
 def crear_word(titulo, contenido):
     doc = Document()
@@ -107,12 +115,23 @@ with st.sidebar:
         st.divider()
         st.subheader("📚 Mis Planeaciones")
         historial = obtener_historial(st.session_state.user.email)
+        
         if historial:
             for p in historial:
+                # Usamos el tema y la fecha para identificar la consulta
                 with st.expander(f"📄 {p['tema']}"):
-                    if st.button("Ver", key=f"v_{p['id']}"):
+                    st.caption(f"Grado: {p['grado']} | {p['metodologia']}")
+                    
+                    col_ver, col_del = st.columns(2)
+                    
+                    # Botón para CARGAR la consulta
+                    if col_ver.button("👁️ Ver", key=f"v_{p['id']}", use_container_width=True):
                         st.session_state.resultado = p['contenido']
                         st.session_state.tema_guardado = p['tema']
+                    
+                    # Botón para ELIMINAR la consulta (con color rojo)
+                    if col_del.button("🗑️", key=f"d_{p['id']}", use_container_width=True, help="Eliminar de forma permanente"):
+                        eliminar_de_db(p['id'])
         else:
             st.info("Sin registros.")
         

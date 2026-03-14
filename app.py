@@ -200,13 +200,21 @@ else:
                 if incluir_proyecto: instrucciones_extra += " - Propón una idea para un proyecto mensual.\n"
 
                 # TU PROMPT COMPLETO
-                prompt = (f"Actúa como experto pedagogo. Genera una planeación didáctica sobre '{tema}' para {grado}. "
-                        f"Es FUNDAMENTAL que bases toda la planeación y el tono en la metodología: {metodologia}. "
-                        f"Incluye Resumen, Objetivo y 3 actividades con el tiempo estimado de cada una. "
-                        f"Añade actividades complementarias (hojas lúdicas) e incluye fuentes de apoyo (libros, citas en linea, etc.). "
-                        f"Incluye algunos links a videos de apoyo en YouTube. Responde en español.\n"
-                        f"Además, incluye lo siguiente:\n{instrucciones_extra}"
-                        f"No aclares que respones como experto pedagogo, eso va implicito")
+                prompt = (
+                            f"Eres un experto en diseño curricular. Genera una secuencia didáctica estructurada sobre: '{tema}' para {grado}. "
+                            f"Es FUNDAMENTAL que toda la planeación respete los principios de la metodología: {metodologia}.\n\n"
+                            f"INSTRUCCIONES DE ESTRUCTURA:\n"
+                            f"1. Si '{tema}' incluye varios conceptos o es un proceso complejo (ej. 'La exposición'), divide la planeación en una secuencia lógica de pasos o sesiones (ej. Sesión 1: Introducción/Concepto, Sesión 2: Preparación, Sesión 3: Práctica/Aplicación).\n"
+                            f"2. Para cada sesión o paso, incluye: un Objetivo específico, y Actividades claras con su tiempo estimado.\n"
+                            f"3. Proporciona un Resumen general al inicio de todo el documento.\n"
+                            f"4. Añade actividades complementarias (ideas para hojas lúdicas o de trabajo).\n"
+                            f"5. Incluye fuentes de apoyo (libros, citas) y sugiere links reales o términos de búsqueda precisos para videos de YouTube.\n"
+                            f"6. Responde 100% en español.\n\n"
+                            f"EXTRAS SOLICITADOS:\n{instrucciones_extra}\n\n"
+                            f"REGLA DE FORMATO: Sé directo. Comienza inmediatamente con el título de la planeación. NO saludes, NO des introducciones conversacionales y NO confirmes tu rol como experto."
+                        )
+
+                
                 
                 response = model.generate_content(prompt)
                 st.session_state.resultado = response.text
